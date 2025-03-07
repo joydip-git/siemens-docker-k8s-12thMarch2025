@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: story-pod
+  template:
+    metadata:
+      labels:
+        app: story-pod
+    spec:
+      containers:
+        - name: story
+          image: joydipdocker/kube-data-demo:v2
+          env:
+            - name: STORY_FOLDER
+              # value: "story"
+              valueFrom:
+                configMapKeyRef:
+                  name: env-store-map
+                  key: folder
+          volumeMounts:
+            - mountPath: /app/story
+              name: story-volume
+      volumes:
+        - name: story-volume
+          # 1.
+          # emptyDir: {}
+          # 2.
+          # hostPath:
+          #   path: /data
+          #   type: DirectoryOrCreate
+
+          # 3.
+          persistentVolumeClaim:
+            claimName: host-pvc

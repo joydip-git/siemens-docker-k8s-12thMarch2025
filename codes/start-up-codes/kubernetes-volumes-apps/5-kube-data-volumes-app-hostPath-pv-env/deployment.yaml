@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: story-pod
+  template:
+    metadata:
+      labels:
+        app: story-pod
+    spec:
+      containers:
+        - name: story-container
+          image: joydipdocker/story-image:v3
+          env:
+            - name: STORY_FOLDER
+              value: "story"
+          volumeMounts:
+            - name: story-volume
+              mountPath: /app/story
+      volumes:
+        - name: story-volume
+          persistentVolumeClaim:
+            claimName: host-pv-claim

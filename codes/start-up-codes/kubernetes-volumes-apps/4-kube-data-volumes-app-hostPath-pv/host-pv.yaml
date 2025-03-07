@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  # storageClassName: slow
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce # sutitable for hostPath type volume (one-node situation)
+    # - ReadOnlyMany (for multiple nodes)
+    # - ReadWriteMany (for multiple pods)
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate
