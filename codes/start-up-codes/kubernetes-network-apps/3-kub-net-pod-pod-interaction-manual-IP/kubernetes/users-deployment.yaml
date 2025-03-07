@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      labels:
+        app: users-api
+    spec:
+      containers:
+        - name: users-container
+          image: joydipdocker/users-api-image:v3
+          imagePullPolicy: Always
+          env:
+            - name: PORT_NUMBER
+              value: "3000"
+            - name: AUTH_ADDRESS
+              value: "10.109.156.173"
+
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      labels:
+        app: users-api
+    spec:
+      containers:
+        - name: users-container
+          image: joydipdocker/users-api-image:v5
+          imagePullPolicy: Always
+          env:
+            - name: PORT_NUMBER
+              value: "3000"
+            - name:
+                AUTH_ADDRESS
+                # when auth-api app in separate container in separate pod - with DNS name
+              value: "auth-service.default"
+              # when auth-api app in separate container in separate pod - with manual IP address
+              # value: "10.107.73.142"
+              # when auth-api app in separate container in same pod
+              # value: localhost
+
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
