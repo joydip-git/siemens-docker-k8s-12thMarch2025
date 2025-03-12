@@ -1,0 +1,26 @@
+# version: "3.8"
+volumes:
+  feedback:
+    name: feedback
+
+services:
+  feedback-container:
+    container_name: feedback-container
+    image: feedback-image:v1
+    # build: ./Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # tags:
+      #   - feedback-image:v1
+    ports:
+      - "3000:3010"
+    env_file:
+      - .env
+    environment:
+      - MESSAGE='server running at port number '
+    volumes:
+      - feedback:/app/feedback
+      - ./pages:/app/pages
+      - /app/node_modules
+    tmpfs: /app/temp

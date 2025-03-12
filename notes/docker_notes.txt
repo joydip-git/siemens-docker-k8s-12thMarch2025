@@ -192,7 +192,7 @@ Users must directly request process isolation by using the --isolation=process f
 
 Docker Build:
 --------------------------------------------------
->docker build -t sample-app .          	=> tag: latest
+>docker build -t sample-app .          		=> tag: latest
 >docker build -t sample-app:1.0.0 .		=> tag: 1.0.0
 
 
@@ -363,6 +363,9 @@ run the container:
 
 also you can create a .env file and place key-value pair PORT=3003 and then you can run the conainer
 >docker run -d -p 3000:3003 --rm --env-file .env --name feedback-app -v feedback:/app/feedback -v "D:/my-applications/docker-apps/data-volumes-app:/app" -v /app/node_modules feedback-app:volumes
+
+precedence: -e takes higer precedence
+>docker run --rm -e PORT=3020 --env-file .env -e MESSAGE='server running at' -p 3001:3020 -v D:/training/siemens-docker-k8s-12thMarch2025/codes/day-1/data-volumes-app/pages:/app/pages -v feedback:/app/feedback -v /app/node_modules --tmpfs /app/temp --name feedback-app feedback-image:v4
 
 Securty aspect with environment variables in Dockerfile:
 -----------------------------------------------------------------

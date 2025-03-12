@@ -41,5 +41,12 @@ app.post('/create', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT
-app.listen(PORT, () => console.log('server running using port: ' + PORT));
+let PORT = process.env.PORT
+if (!PORT) {
+  PORT = process.env.DEFAULT_PORT
+}
+console.log(PORT)
+
+
+//const PORT = 3000
+app.listen(PORT, () => console.log(process.env.MESSAGE + PORT));
