@@ -1,6 +1,7 @@
-version: "3.8"
+# version: "3.8"
 services:
-  mongodb:
+  mongoserver:
+    container_name: mongoserver
     image: "mongo"
     volumes:
       - data:/data/db
@@ -9,11 +10,13 @@ services:
     #   MONGO_INITDB_ROOT_PASSWORD: secret
     env_file:
       - ./env/mongo.env
-  backend:
-    build: ./backend
-    # build:
-    #   context: ./backend
-    #   dockerfile: Dockerfile
+  goals-backend:
+    container_name: goals-backend
+    # build: ./backend
+    image: "goals-node:latest"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     #   args:
     #     some-arg: 1
     ports:
@@ -24,9 +27,13 @@ services:
       - /app/node_modules
     env_file:
       - ./env/backend.env
+    environment:
+      - MONGODB_DNS_NAME=mongoserver
     depends_on:
-      - mongodb
-  frontend:
+      - mongoserver
+  goals-frontend:
+    container_name: goals-frontend
+    image: "goals-react:latest"
     build: ./frontend
     ports:
       - "3000:3000"
@@ -35,8 +42,14 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - backend
+      - goals-backend
 
 volumes:
   data:
+    name: data
   logs:
+    name: logs
+# networks:
+#   fav-network:
+#     name: ""
+

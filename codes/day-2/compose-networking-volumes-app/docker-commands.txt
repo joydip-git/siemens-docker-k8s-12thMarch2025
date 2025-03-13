@@ -45,13 +45,10 @@ docker build -t goals-react .
 Run React SPA Container
 ---------------------
 
-docker run --name goals-frontend \
-  -v D:/my-applications/docker-apps/docker-compose-app/frontend/src:/app/src \
-  --rm \
-  -d \
-  -p 3000:3000 \
-  -it \
-  goals-react
+docker run --name goals-frontend -v D:/my-applications/docker-apps/docker-compose-app/frontend/src:/app/src --rm -p 3000:3000 -it goals-react
+
+
+docker run --name goals-frontend --rm -p 3000:3000 -it goals-react
 
 ---------------------
 Stop all Containers
