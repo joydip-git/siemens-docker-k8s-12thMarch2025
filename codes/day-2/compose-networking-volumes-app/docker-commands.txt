@@ -29,17 +29,11 @@ docker build -t goals-node .
 Run Node API Container
 ---------------------
 
-docker run --name goals-backend \
-  -e MONGODB_USERNAME=joydip \
-  -e MONGODB_PASSWORD=secret \
-  -v logs:/app/logs \
-  -v D:/my-applications/docker-apps/docker-compose-app/backend:/app \
-  -v /app/node_modules \
-  --rm \
-  -d \
-  --network goals-net \
-  -p 3001:3001 \
-  goals-node
+docker run --name goals-backend -e MONGODB_USERNAME=joydip -e MONGODB_PASSWORD=secret -e PORT=3001 -e MONGODB_DNS_NAME=mongoserver -v logs:/app/logs -v D:/training/siemens-docker-k8s-12thMarch2025/codes/day-2/compose-networking-volumes-app/backend:/app -v /app/node_modules --rm -d --network goals-net -p 3001:3001  goals-node
+
+or
+
+docker run --name goals-backend --env-file ./env/backend.env -e MONGODB_DNS_NAME=mongoserver -v logs:/app/logs -v D:/training/siemens-docker-k8s-12thMarch2025/codes/day-2/compose-networking-volumes-app/backend:/app -v /app/node_modules --rm -d --network goals-net -p 3001:3001  goals-node
 
 ---------------------
 Build React SPA Image
