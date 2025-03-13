@@ -1,0 +1,6 @@
+POST http://localhost:3001/goals
+Content-Type: application/json
+
+{
+    "text":"Angular"
+}
