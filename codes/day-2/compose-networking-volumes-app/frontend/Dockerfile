@@ -1,6 +1,13 @@
-FROM node:alpine3.21
+FROM node
+
 WORKDIR /app
+
 COPY package.json .
+
 RUN npm install
+
 COPY . .
-CMD [ "node","./src/server.js" ]
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
