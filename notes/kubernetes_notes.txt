@@ -108,7 +108,7 @@ deployment.apps "kube-message-app" deleted
 2. create a service:
 since the container running on the pod will not be exposed to outside of the cluster, hence you need to create a service, which will create an inrernal IP for the pods grouped under that service, which tne can be expose to the outside of he cluster (this is unchangable IP, where as the IP of the pods are frequently changed)
 
->kubectl expose deployment <deployment-name> --type=LoadBanalcer/ClusterIP/NorePort --port <application-port-number>
+>kubectl expose deployment/<deployment-name> --type=LoadBalancer/ClusterIP/NorePort --port <application-port-number>
 
 this command will create a service with an IP for the pod.
 
