@@ -60,7 +60,7 @@ app.get('/movies', async (req, res) => {
 
 app.get('/people', async (req, res) => {
   try {
-    const response = await axios.get('https://swapi.dev/api/people');
+    const response = await axios.get('https://swapi.dev/api/films');
     res.status(200).json({ people: response.data });
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong.' });
@@ -68,7 +68,18 @@ app.get('/people', async (req, res) => {
 });
 // app.listen(3000, () => console.log('server is running on port 3000'))
 
-const CONNECTION_STRING = 'mongodb://localhost:27017/swfavorites';
+//local connection string
+// const CONNECTION_STRING = 'mongodb://localhost:27017/swfavorites';
+
+//if mongodb is running in host machine
+// const CONNECTION_STRING = 'mongodb://host.docker.internal:27017/swfavorites';
+
+//mongodb is running in separate container and another container is trying to access it (use IP address instaed of localhost)
+// const CONNECTION_STRING = 'mongodb://172.17.0.2:27017/swfavorites'
+
+
+//mongodb is running in separate container under some network and having DNS name same as that of the container name and another container is trying to access it (use DNS name instaed of localhost)
+const CONNECTION_STRING = 'mongodb://mongoserver:27017/swfavorites'
 
 mongoose.connect(CONNECTION_STRING, { useNewUrlParser: true }
 ).then(

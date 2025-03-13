@@ -9,8 +9,13 @@ const morgan = require('morgan');
 const Goal = require('./models/goal');
 
 const PORT = process.env.PORT
+
 const MONGODB_USERNAME = process.env.MONGODB_USERNAME
+
 const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
+
+const MONGODB_DNS_NAME = process.env.MONGODB_DNS_NAME
+
 const app = express();
 
 const accessLogStream = fs.createWriteStream(
@@ -86,7 +91,7 @@ app.delete('/goals/:id', async (req, res) => {
   }
 });
 
-mongoose.connect(`mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
+mongoose.connect(`mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_DNS_NAME}:27017/course-goals?authSource=admin`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

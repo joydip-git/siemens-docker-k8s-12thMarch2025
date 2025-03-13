@@ -1,4 +1,9 @@
 ---------------------
+Create volumes
+---------------------
+docker volume create data
+
+---------------------
 Create Network
 ---------------------
 
@@ -8,7 +13,8 @@ docker network create goals-net
 Run MongoDB Container
 ---------------------
 
-docker run --name mongodb \
+docker run 
+  --name mongoserver \
   -e MONGO_INITDB_ROOT_USERNAME=joydip \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   -v data:/data/db \
@@ -16,6 +22,8 @@ docker run --name mongodb \
   -d \
   --network goals-net \
   mongo
+
+docker run --name mongoserver --env-file /env/mongo.env -v data:/data/db --rm -d --network goals-net mongo
 
 ---------------------
 Build Node API Image
