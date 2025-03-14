@@ -391,3 +391,11 @@ of, (by file name, if there is separate file created for service)
 or
 >kubectl delete deployment kube-message-app
 >kubectl delete service backend
+
+
+
+multiple containers in same pod: localhost
+multiple containers in multiple pods: 
+	- the IP address of the service through which other pod(s) has/have been exposed
+	- special env var: <servicename>_SERVICE_HOST
+	- DNS name: servicename.namespacename
