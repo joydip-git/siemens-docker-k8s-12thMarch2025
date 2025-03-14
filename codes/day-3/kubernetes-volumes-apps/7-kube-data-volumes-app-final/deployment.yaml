@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: story-pod
+  template:
+    metadata:
+      labels:
+        app: story-pod
+    spec:
+      containers:
+        - name: story
+          image: joydipdocker/story-app-image:v2
+          # resources:
+          #   limits:
+          #     memory: "128Mi"
+          #     cpu: "500m"
+          envFrom:
+            - configMapRef:
+                name: env-store-map
+          volumeMounts:
+            - mountPath: /app/story
+              name: story-volume
+
+      volumes:
+        - name: story-volume
+          persistentVolumeClaim:
+            claimName: host-pv-claim

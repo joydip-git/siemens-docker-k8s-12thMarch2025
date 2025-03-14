@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-message-pod
+  labels:
+    app: kube-pod
+spec:
+  containers:
+    - name: kube-message-container
+      image: joydipdocker/kube-app:v1
+      imagePullPolicy: Always
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"

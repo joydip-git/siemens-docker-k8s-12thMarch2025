@@ -2,19 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-message-app
+  labels:
+    app: kube-dep
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: kube-message-pod
+      app: kube-pod
+  replicas: 2
   template:
     metadata:
+      name: kube-message-pod
       labels:
-        app: kube-message-pod
+        app: kube-pod
     spec:
       containers:
         - name: kube-message-container
-          image: joydipdocker/message-app:v1
+          image: joydipdocker/kube-app:v1
+          imagePullPolicy: Always
           resources:
             limits:
               memory: "128Mi"
